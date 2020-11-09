@@ -24,6 +24,7 @@ dill==0.3.2
 discord.py==1.5.0
 emoji==0.6.0
 entrypoints==0.3
+feedparser==6.0.2
 ftfy==5.8
 future==0.18.2
 googledrivedownloader==0.4
@@ -92,6 +93,7 @@ requests==2.24.0
 scikit-learn==0.23.2
 scipy==1.5.2
 Send2Trash==1.5.0
+sgmllib3k==1.0.0
 six==1.15.0
 spacy==2.3.2
 srsly==1.0.2
