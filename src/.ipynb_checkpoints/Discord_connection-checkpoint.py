@@ -19,7 +19,7 @@ import yaml
 
 #Load the Discord Token config file
 with open("../config.yaml", "r") as fh:
-  python_object = yaml.load(fh, Loader=yaml.SafeLoader)
+  parsed_yaml_file = yaml.load(fh, Loader=yaml.SafeLoader)
 
 #-------------------------------
 # Load the Pytorch Model
@@ -55,9 +55,13 @@ class CharDataset(Dataset):
         return x, y
 
 #Load the training data 
-path = "../data/training_dataset.pickle"
+path = "../data/Training_data_input.pickle"
 with open(path, 'rb') as f:
-    train_dataset = pickle.load(f)    
+    train_dataset_raw = pickle.load(f)
+    
+#Creat the pytorch model input object    
+block_size = 128 
+train_dataset = CharDataset(train_dataset_raw, block_size)    
 
 #Set up the model
 from mingpt.model import GPT, GPTConfig
@@ -73,7 +77,7 @@ tconf = TrainerConfig(max_epochs=1, batch_size=128, learning_rate=6e-4,
 trainer = Trainer(model, train_dataset, None, tconf)
 
 #Load the GPU trained model into a cpu type pytorch version
-path = '../data/Basic-Bot_trained.pickle'
+path = "../models/mingpt_trained.pickle" 
 device = torch.device('cpu')
 model.load_state_dict(torch.load(path, map_location=device))
 
