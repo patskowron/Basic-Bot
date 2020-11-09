@@ -8,6 +8,7 @@
 #-------------------------------
 # Load Packages
 #-------------------------------
+import helpers
 import discord
 import sys
 import pickle
@@ -105,8 +106,13 @@ async def on_message(message):
         x = torch.tensor([train_dataset.stoi[s] for s in context], dtype=torch.long)[None,...].to(trainer.device)
         y = sample(model, x, 200, temperature=1.5, sample=True, top_k=10)[0]
         completion = ''.join([train_dataset.itos[int(i)] for i in y])
-
-        await message.channel.send(completion)
+        
+        #Parse the raw model output
+        # 1) Allow the model to finish the current line and repor the next line
+        # 2) Replace any intance of <HTTP> with a link to a current headline buzzfeed article
+        parsed_model_output=helpers.parse_model_output(completion, 2)
+        
+        await message.channel.send(parsed_model_output)
 
 client.run(parsed_yaml_file["token"])
 
