@@ -30,7 +30,11 @@ First create Bot in discord and save the key in a file called ```config.yaml``` 
 token : "${token}"
 ```
 
-Next, run the  ```Discord_connection.py``` script to activate your bot on your Discord server. If you type ">>" followed by a message, the bot will use the message as context for the trained minGPT. For some fun I trained the model to replace any links with a place holder <HTTPS> which I substitute with some very "Basic" current Buzzfeed articles. If you want to have this bot running 24/7 the easiest and most free way is to create an account on AWS (first year is free) and create a tiny Linux server. Here you can clone the repository, upload the trained models into the ```/model``` folder and have some fun.  
+Next, run the  ```Discord_connection.py``` script to activate your bot on your Discord server. If you type ">>" followed by a message, the bot will use the message as context for the trained minGPT. For some fun I trained the model to replace any links with a place holder <HTTPS> which I substitute with some very "Basic" current Buzzfeed articles. If you want to have this bot running 24/7 the easiest and most free way is to create an account on AWS (first year is free) and create a tiny Linux server. Here you can clone the repository, upload the trained models into the ```/model``` folder. Next install PM2 (https://pm2.keymetrics.io/docs/usage/quick-start/) and start the bot script with:
+  
+ ```bash
+ pm2 start Discord_connection.p
+ ```
 
 
 
